@@ -34,13 +34,74 @@
 
 //Part 2: Thinking Methodically 
 
-const thinkMMM = [{ id: "42", name: "Bruce", occupation: "Knight", age: "41" }, { id: "48", name: "Barry", occupation: "Runner", age: "25" }, { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" }, { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" }, { id: "7", name: "Bilbo", occupation: "None", age: "111" }];
+const data = [
+  { id: "42", name: "Bruce", occupation: "Knight", age: "41" },
+  { id: "48", name: "Barry", occupation: "Runner", age: "25" },
+  { id: "57", name: "Bob", occupation: "Fry Cook", age: "19" },
+  { id: "63", name: "Blaine", occupation: "Quiz Master", age: "58" },
+  { id: "7", name: "Bilbo", occupation: "None", age: "111" }
+];
+ 
+ by age
+data.sort((a, b) => a.age - b.age);
+
+const filteredData = data.filter(person => person.age <= 50);
+
+const mappedData = data.map(person => ({
+  ...person,
+  job: person.occupation,
+  age: parseInt(person.age) + 1
+}));
+
+const sumOfAges = data.reduce((sum, person) => sum + parseInt(person.age), 0);
+const averageAge = sumOfAges / data.length;
+
+console.log("Sorted data:", data);
+console.log("Filtered data:", filteredData);
+console.log("Mapped data:", mappedData);
+console.log("Sum of ages:", sumOfAges);
+console.log("Average age:", averageAge);
 
 
-function reverwe(){
-    let revser = thinkMMM.reverse()
-        for (i=0; i<revser.length; i++){
-            thinkMMM.sort(thinkMMM[i])
-            console.log(thinkMMM)
-        }
-    }
+//Part 3: Thinking Critically
+
+function incrementAge(obj) {
+  if (!obj.age) {
+    obj.age = 0;
+  }
+  obj.age++;
+  obj.updated_at = new Date();
+}
+
+function incrementAgeCopy(obj) {
+  const copy = { ...obj };
+  if (!copy.age) {
+    copy.age = 0;
+  }
+  copy.age++;
+  copy.updated_at = new Date();
+  return copy;
+}
+
+const person = { name: "Alice" };
+
+incrementAge(person);
+console.log(person);
+
+const personCopy = incrementAgeCopy(person);
+console.log(personCopy);
+console.log(person); 
+
+personCopy.updated_at.setTime(personCopy.updated_at.getTime() + 1000);
+console.log(personCopy);
+console.log(person); 
+
+function incrementAgeCopySafe(obj) {
+  const copy = { ...obj };
+  if (!copy.age) {
+    copy.age = 0;
+  }
+  copy.age++;
+  copy.updated_at = new Date().thisString();
+  return copy;
+}
